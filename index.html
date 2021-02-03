@@ -45,7 +45,7 @@
 
         function searchWeather() {
             const cityName = document.getElementById('city-name').value;
-            fetch('http://api.openweathermap.org/data/2.5/weather?q='+cityName+'&units=metric&appid=4721b738450ea5bc8b8d51c0279dc626')
+            fetch('https://api.openweathermap.org/data/2.5/weather?q='+cityName+'&units=metric&appid=4721b738450ea5bc8b8d51c0279dc626')
             .then( res => res.json())
             .then( data => {
                 // console.log(data)
