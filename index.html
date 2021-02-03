@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+        img{
+            height: 150px;
+            width: 150px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter a location for Weather ... " id="city-name">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" onclick="searchWeather()">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img  id="weather-icon" src="" alt="" class="text-center">
+            <h1 id="city"></h1>
+            <h3><span id="city-temp"></span></h3>
+            <h1 class="lead" id="weather-condition"></h1>
+        </div>
+    </div>
+
+    <script>
+
+        function searchWeather() {
+            const cityName = document.getElementById('city-name').value;
+            fetch('http://api.openweathermap.org/data/2.5/weather?q='+cityName+'&units=metric&appid=4721b738450ea5bc8b8d51c0279dc626')
+            .then( res => res.json())
+            .then( data => {
+                // console.log(data)
+                
+                const city = data.name;
+                document.getElementById('city').innerText = city;
+
+                const temp = data.main.temp;
+                document.getElementById('city-temp').innerText = temp;
+
+                const weather = data.weather[0].main;
+                document.getElementById("weather-condition").innerText = weather;
+
+                const weatherIcon = data.weather[0].icon;
+                const iconUrl = "https://openweathermap.org/img/w/"+weatherIcon+".png";
+                document.getElementById('weather-icon').setAttribute('src',iconUrl);
+                document.getElementById('weather-icon').style.display = 'inline';
+
+
+            })
+        }
+    </script>
+</body>
+
+</html>
